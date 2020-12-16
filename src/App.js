@@ -121,9 +121,10 @@ class App extends Component {
     helpFunction = () => {
         let manager = this.state.manager.toLowerCase()
         window.ethereum.on('accountsChanged', (accounts) => {
-            let isShowButton = accounts[0].toLowerCase() === manager ? 'inline' : 'none'
-            console.log('show;', isShowButton)
-            this.setState({ currentAccount: accounts[0], isShowButton: isShowButton })
+            if (accounts[0]) {
+                let isShowButton = accounts[0].toLowerCase() === manager ? 'inline' : 'none'
+                this.setState({ currentAccount: accounts[0], isShowButton: isShowButton })
+            }
         })
     }
 

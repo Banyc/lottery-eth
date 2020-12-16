@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL3.0
-pragma solidity ^0.5.0;
+pragma solidity ^0.7.0;
 
 contract Lottery {
     address payable public manager;
@@ -7,7 +7,7 @@ contract Lottery {
     uint256 public round;
     address payable public winner;
 
-    constructor() public {
+    constructor(){
         manager = msg.sender;
     }
 

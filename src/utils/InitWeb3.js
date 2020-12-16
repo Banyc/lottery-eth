@@ -1,10 +1,11 @@
 let Web3 = require('web3')
-let web3 = new Web3(window.web3.currentProvider)
-window.addEventListener('load', function () {
-    if (typeof Web3 !== undefined) {
-        web3 = new Web3(window.web3.currentProvider)
-    } else {
-        alert('未安装MetaMask，请先安装MetaMask')
-    }
-})
+let web3 = new Web3()
+if (window.ethereum) {
+    web3 = new Web3(window.ethereum)
+} else if (window.web3) {
+    web3 = new Web3(web3.currentProvider)
+} else {
+    alert('你需要先安装MetaMask')
+}
+window.ethereum.enable()
 module.exports = web3
