@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CardExampleCard from './display/ui'
 
 let web3 = require('./utils/InitWeb3');
@@ -10,64 +10,64 @@ class App extends Component {
         console.log('play Button click')
         //1.调用合约方法
         //2.转钱1ETH
-        this.setState({isClicked: true})
+        this.setState({ isClicked: true })
         let accounts = await web3.eth.getAccounts()
         try {
             await lotteryInstance.methods.play().send({
                 from: accounts[0],
-                value: web3.utils.toWei('1', 'ether'),
+                value: web3.utils.toWei('0.1', 'ether'),
                 gas: '3000000',
             })
-            window.location.reload(true)
-            this.setState({isClicked: false})
+            window.location.reload()
+            this.setState({ isClicked: false })
             alert('投注成功')
         } catch (e) {
             console.log(e)
-            this.setState({isClicked: false})
+            this.setState({ isClicked: false })
             alert('投注失败')
         }
     }
-    kaijiang = async () => {
+    draw = async () => {
         console.log('kaijiang Button click')
         //1.调用合约方法
         //2.转钱1ETH
-        this.setState({isClicked: true})
+        this.setState({ isClicked: true })
         let accounts = await web3.eth.getAccounts()
         try {
-            await lotteryInstance.methods.kaijiang().send({
+            await lotteryInstance.methods.draw().send({
                 from: accounts[0],
                 // value: web3.utils.toWei('1', 'ether'),
                 gas: '3000000',
             })
             //显示中奖人
             let winner = await lotteryInstance.methods.winner().call()
-            window.location.reload(true)
-            this.setState({isClicked: false})
+            window.location.reload()
+            this.setState({ isClicked: false })
             alert(`开奖成功!\n中奖人: ${winner}`)
         } catch (e) {
             console.log(e)
-            this.setState({isClicked: false})
+            this.setState({ isClicked: false })
             alert('开奖失败')
         }
     }
-    tuijiang = async () => {
+    refund = async () => {
         console.log('tuijiang Button click')
         //1.调用合约方法
         //2.转钱1ETH
-        this.setState({isClicked: true})
+        this.setState({ isClicked: true })
         let accounts = await web3.eth.getAccounts()
         try {
-            await lotteryInstance.methods.tuijiang().send({
+            await lotteryInstance.methods.refund().send({
                 from: accounts[0],
                 // value: web3.utils.toWei('1', 'ether'),
                 gas: '3000000',
             })
-            window.location.reload(true)
-            this.setState({isClicked: false})
+            window.location.reload()
+            this.setState({ isClicked: false })
             alert('退奖成功')
         } catch (e) {
             console.log(e)
-            this.setState({isClicked: false})
+            this.setState({ isClicked: false })
             alert('退奖失败')
         }
     }
@@ -88,7 +88,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-
     }
 
     async componentWillMount() {
@@ -119,10 +118,19 @@ class App extends Component {
         })
     }
 
+    helpFunction = () => {
+        let manager = this.state.manager.toLowerCase()
+        window.ethereum.on('accountsChanged', (accounts) => {
+            let isShowButton = accounts[0].toLowerCase() === manager ? 'inline' : 'none'
+            console.log('show;', isShowButton)
+            this.setState({ currentAccount: accounts[0], isShowButton: isShowButton })
+        })
+    }
+
     render() {
-        let a = 'Sher'
+        this.helpFunction()
         return (
-            <div>
+            <div style={{ paddingLeft: '40%', paddingTop: '2%' }}>
                 <CardExampleCard
                     manager={this.state.manager}
                     round={this.state.round}
@@ -132,8 +140,8 @@ class App extends Component {
                     playerCounts={this.state.playerCounts}
                     currentAccount={this.state.currentAccount}
                     play={this.play}
-                    kaijiang={this.kaijiang}
-                    tuijiang={this.tuijiang}
+                    draw={this.draw}
+                    refund={this.refund}
                     isClicked={this.state.isClicked}
                     isShowButton={this.state.isShowButton}
                 />

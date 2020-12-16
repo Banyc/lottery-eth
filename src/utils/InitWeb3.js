@@ -1,6 +1,10 @@
-let Web3 = require('web3')//1.0版本
-
-console.log(window.web3.version)//0.20版本
+let Web3 = require('web3')
 let web3 = new Web3(window.web3.currentProvider)
-console.log(web3.version)
+window.addEventListener('load', function () {
+    if (typeof Web3 !== undefined) {
+        web3 = new Web3(window.web3.currentProvider)
+    } else {
+        alert('未安装MetaMask，请先安装MetaMask')
+    }
+})
 module.exports = web3

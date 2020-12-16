@@ -1,18 +1,19 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: GPL3.0
+pragma solidity ^0.7.0;
 
 contract Lottery {
-    address public manager;
-    address[] public players;
+    address payable public manager;
+    address payable[] public players;
     uint256 public round;
-    address public winner;
+    address payable public winner;
 
-    constructor() public{
+    constructor(){
         manager = msg.sender;
     }
 
     //1.买彩票，每次只能投1ETH
     function play() public payable {
-        require(msg.value == 1 ether);
+        require(msg.value == 0.1 ether);
         //2.把参与者加入彩民池
         players.push(msg.sender);
     }
@@ -26,7 +27,7 @@ contract Lottery {
         return players.length;
     }
 
-    function kaijiang() public onlyManager {
+    function draw() public onlyManager {
         //根据区块时间、区块难度、彩民总数生成随机数
         bytes memory v1 = abi.encodePacked(block.timestamp, block.difficulty, players.length);
         bytes32 v2 = keccak256(v1);
@@ -44,20 +45,20 @@ contract Lottery {
         delete players;
     }
 
-    function tuijiang() public onlyManager {
+    function refund() public onlyManager {
         for (uint256 i = 0; i < players.length; i++) {
             players[i].transfer(1 ether);
         }
         round++;
         delete players;
     }
+    
+    function getPlayers() public view returns(address payable[] memory){
+        return players;
+    }
 
     function getBalance() public view returns (uint256){
         return address(this).balance;
-    }
-
-    function getPlayers() public view returns (address[]){
-        return players;
     }
 
 }

@@ -1,9 +1,9 @@
 import React from 'react'
-import {Button, Card, Icon, Image, Statistic} from 'semantic-ui-react'
+import { Button, Card, Icon, Image, Statistic } from 'semantic-ui-react'
 
 const CardExampleCard = (props) => (
     <Card>
-        <Image src='/images/logo.png'/>
+        <Image src='/images/logo.png' />
         <Card.Content>
             <Card.Header>彩票Demo</Card.Header>
             <Card.Meta>
@@ -14,10 +14,10 @@ const CardExampleCard = (props) => (
             <Card.Description>每晚8点准时开奖！！</Card.Description>
         </Card.Content>
         <Card.Content extra>
-            <a>
-                <Icon name='user'/>
+            <Button>
+                <Icon name='user' />
                 {props.playerCounts} 人参与
-            </a>
+            </Button>
         </Card.Content>
 
         <Card.Content extra>
@@ -30,7 +30,7 @@ const CardExampleCard = (props) => (
         <Card.Content extra>
             <Statistic color='blue'>
                 <Statistic.Value>第{props.round}期</Statistic.Value>
-                <a href='https://ropsten.etherscan.io/address/0xe2aB1106A5eF17EC4739B94f7ABA287683a3ee4C'>点击我查看交易历史</a>
+                <a href='https://ropsten.etherscan.io/address/0x66F06D938F90b8cc1604F6f2C4b4520cBDD23DCf'>点击我查看交易历史</a>
             </Statistic>
         </Card.Content>
 
@@ -39,12 +39,12 @@ const CardExampleCard = (props) => (
             <Button.Content hidden>购买放飞梦想</Button.Content>
         </Button>
 
-        <Button inverted color='red' style={{display: props.isShowButton}} onClick={props.kaijiang}
-                disabled={props.isClicked}>
+        <Button inverted color='red' style={{ display: props.isShowButton }} onClick={props.draw}
+            disabled={props.isClicked}>
             开奖
         </Button>
-        <Button inverted color='orange' style={{display: props.isShowButton}} onClick={props.tuijiang}
-                disabled={props.isClicked}>
+        <Button inverted color='orange' style={{ display: props.isShowButton }} onClick={props.refund}
+            disabled={props.isClicked}>
             退奖
         </Button>
     </Card>
