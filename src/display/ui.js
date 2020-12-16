@@ -7,9 +7,9 @@ const CardExampleCard = (props) => (
         <Card.Content>
             <Card.Header>彩票Demo</Card.Header>
             <Card.Meta>
-                <p>管理员地址: {props.manager}</p>
-                <p>当前地址: {props.currentAccount}</p>
-                <p>上期中奖者:{props.winner}</p>
+                <p style={{ wordBreak: 'break-word' }}>管理员地址: {props.manager}</p>
+                <p style={{ wordBreak: 'break-word' }}>当前地址: {props.currentAccount}</p>
+                <p style={{ wordBreak: 'break-word' }}>上期中奖者:{props.winner}</p>
             </Card.Meta>
             <Card.Description>每晚8点准时开奖！！</Card.Description>
         </Card.Content>
@@ -47,7 +47,7 @@ const CardExampleCard = (props) => (
             disabled={props.isClicked}>
             退奖
         </Button>
-    </Card>
+    </Card >
 )
 
 export default CardExampleCard
